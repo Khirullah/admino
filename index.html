@@ -1,0 +1,439 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="module" src="./js/owner.js"></script>
+    <script type="module" src="./js/spend.js"></script>
+    <script type="module" src="./js/recived.js"></script>
+
+    <title>Clint Side</title>
+    <style>
+
+        textarea {
+            width: 90%;
+            height: 110px;
+            padding: 12px 20px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            background-color: #f8f8f8;
+            resize: none;
+        }
+
+        ul {
+            list-style-type: none;
+            margin-bottom: -5%;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+            margin-top: -1%;
+        }
+
+        li {
+            float: left;
+        }
+
+            li a {
+                display: block;
+                color: white;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+
+                li a:hover {
+                    background-color: black;
+                }
+
+                li a:active {
+                    background-color: black;
+                }
+
+
+        .container {
+            margin-top: 10%;
+            margin-left: 5%;
+            width: 90%;
+            height: 80%;
+            background: #f4dabf;
+            border-radius: 1rem;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+        }
+
+        table {
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            font-family: sans-serif;
+            width: 100%;
+            height: 100%;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: center;
+            padding: 8px;
+        }
+		h2{
+		text-align: center;
+		font-size: 2em;
+		font-family: sans-serif;
+		}
+
+        input[type="button"], input[type="submit"] {
+            background-color: #36A9AE;
+            background-image: linear-gradient(#37ADB2, #329CA0);
+            border: 1px solid #2A8387;
+            border-radius: 4px;
+            box-shadow: rgba(0, 0, 0, 0.12) 0 1px 1px;
+            color: #FFFFFF;
+            cursor: pointer;
+            display: block;
+            font-family: -apple-system,".SFNSDisplay-Regular","Helvetica Neue",Helvetica,Arial,sans-serif;
+            font-size: 17px;
+            line-height: 100%;
+            margin: 0;
+            outline: 0;
+            padding: 11px 15px 12px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            transition: box-shadow .05s ease-in-out,opacity .05s ease-in-out;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            width: 50%;
+        }
+
+        .jaidat {
+            /* styling */
+            background-color: white;
+            border: thin solid blue;
+            border-radius: 4px;
+            display: inline-block;
+            font-family: sans-serif;
+            line-height: 1.5em;
+			width: 60%;
+            padding: 0.5em 3.5em 0.5em 1em;
+            /* reset */
+
+            margin-left: 5%;
+			margin-top: -10%;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+            .jaidat {
+                background-image: linear-gradient(45deg, transparent 50%, blue 50%), linear-gradient(135deg, blue 50%, transparent 50%), linear-gradient(to right, skyblue, skyblue);
+                background-position: calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px), 100% 0;
+                background-size: 5px 5px, 5px 5px, 2.5em 2.5em;
+                background-repeat: no-repeat;
+            }
+
+                .jaidat:focus {
+                    background-image: linear-gradient(45deg, white 50%, transparent 50%), linear-gradient(135deg, transparent 50%, white 50%), linear-gradient(to right, gray, gray);
+                    background-position: calc(100% - 15px) 1em, calc(100% - 20px) 1em, 100% 0;
+                    background-size: 5px 5px, 5px 5px, 2.5em 2.5em;
+                    background-repeat: no-repeat;
+                    border-color: grey;
+                    outline: 0;
+                }
+label{
+font-family: sans-serif;
+margin-left: 70%;
+margin-top: 5%;
+
+}
+#saa{
+margin-left: 25%;
+margin-top: 2%;
+width: 20%;
+}
+    </style>
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <ul>
+        <li><a id="recived" href="#">گرفته شده</a></li>
+        <li><a id="owner_recived" href="#">رسیده به صاحب جایدات</a></li>
+        <li><a id="spend" href="#">خرج شده</a></li>
+    </ul>
+    </br>
+
+    <label for="jaidat">لیست جایدات</label>
+
+    <select class="jaidat" id="jaid"><i class="fa-solid fa-bars"></i>
+        <option value="almas">الماس نوین</option>
+        <option value="kota">کوته سنگی</option>
+        <option value="pul">پول سوخته</option>
+    </select>
+    <input  type="button" id="saa" value="تائید">
+
+    <div class="container">
+        <div class="recived">
+            <div id='see'></div>
+            <h2>پول از دکاندار گرفته شده</h2>
+			<br>
+				    <select id="searchmonth">
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+				    <select id="searchyear">
+                    <option value="1403">1403</option>
+                    <option value="1404">1404</option>
+                    <option value="1405">1405</option>
+                    <option value="1406">1406</option>
+                    <option value="1407">1407</option>
+                    <option value="1408">1408</option>
+                    <option value="1409">1409</option>
+                    <option value="1410">1410</option>
+                </select>
+				<button id="search" class="button">
+				<span class="button-content">فلتر </span>
+				</button>
+				<p id='total' class="total">مجموع پول جمع شده از دکاندار ها</p> 
+            <div id="" style="overflow:scroll; height:90%;">
+                <table>
+                    <thead>
+                    <th>No:</th>
+                    <th>اسم دکاندار</th>
+                    <th>تاریخ</th>
+                    <th>مقدار پول</th>
+
+                    </thead>
+                    <tbody id="tbody1">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+
+
+        <div class="owner_recived">
+
+            <h2>پول رسیده به مالک جایدات</h2>
+			<br>
+				    <select id="osearchmonth">
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+				    <select id="osearchyear">
+                    <option value="1403">1403</option>
+                    <option value="1404">1404</option>
+                    <option value="1405">1405</option>
+                    <option value="1406">1406</option>
+                    <option value="1407">1407</option>
+                    <option value="1408">1408</option>
+                    <option value="1409">1409</option>
+                    <option value="1410">1410</option>
+                </select>
+				<button id="osearch" class="button">
+				<span class="obutton-content">فلتر </span>
+				</button>
+				<p id='ototal' class="total">مجموع پول جمع شده از دکاندار ها</p> 
+
+            <div id="" style="overflow:scroll; height:90%;">
+                <table>
+                    <thead>
+                    <th>No</th>
+                    <th>تاریخ</th>
+                    <th>مقدار پول</th>
+                    <th>تائید مالک جایدات</th>
+                    <th>تائید</th>
+
+                    </thead>
+                    <tbody id="tbody2">
+                    </tbody>
+
+                </table>
+
+            </div>
+            <div class="modal fade" id="actionModal" tabindex="-1" aria-labelledby="actionLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <p class="modal-title fs-5" id="actionLabel">Modal title</p>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="ex"><i class="fa-solid fa-xmark"></i></button>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label"></label>
+                                <input type="text" class="form-control" id="modids" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label"></label>
+                                <input type="button" class="form-control" value="خیر" id="modis" />
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="spend">
+            <h2>مصارف</h2>
+			<br>
+				    <select id="ssearchmonth">
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+				    <select id="ssearchyear">
+                    <option value="1403">1403</option>
+                    <option value="1404">1404</option>
+                    <option value="1405">1405</option>
+                    <option value="1406">1406</option>
+                    <option value="1407">1407</option>
+                    <option value="1408">1408</option>
+                    <option value="1409">1409</option>
+                    <option value="1410">1410</option>
+                </select>
+				<button id="ssearch" class="button">
+				<span class="sbutton-content">فلتر </span>
+				</button>
+				<p id='stotal' class="total">مجموع پول جمع شده از دکاندار ها</p> 
+            <div id="" style="overflow:scroll; height:90%;">
+                <table>
+                    <thead>
+                    <th>No</th>
+                    <th>معلومات</th>
+                    <th>تاریخ</th>
+                    <th>مقدار پول</th>
+                    <th>تائید مالک جایدات</th>
+                    <th>تائید</th>
+
+                    </thead>
+                    <tbody id="tbody3">
+                    </tbody>
+
+                </table>
+
+            </div>
+            <div class="modal fade" id="actionModals" tabindex="-1" aria-labelledby="actionLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <p class="modal-title fs-5" id="actionLabels">Modal title</p>
+                            <button type="button" class="btn-closes" data-bs-dismiss="modal" aria-label="Close" id="exs"><i class="fa-solid fa-xmark"></i></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label"></label>
+                                <input type="text" class="form-control" id="modidss" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label"></label>
+                                <input type="button" class="form-control" value="بله" id="modiss" />
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script type="module">
+
+ 
+       
+        
+
+        const recived = document.querySelector('.recived');
+        const owner_recived = document.querySelector('.owner_recived');
+        const spend = document.querySelector('.spend');
+        const anchors = document.querySelectorAll('a');
+        recived.style.display = 'block';
+        owner_recived.style.display = 'none';
+        spend.style.display = 'none';
+        anchors.forEach(anchor => {
+            anchor.addEventListener('click', () => {
+                const id = anchor.id;
+                switch (id) {
+                    case 'recived':
+                        recived.style.display = 'block';
+                        owner_recived.style.display = 'none';
+                        spend.style.display = 'none';
+                        //document.getElementById('back').style.visibility = 'visible';
+
+                        break;
+                    case 'owner_recived':
+                        recived.style.display = 'none';
+                        owner_recived.style.display = 'block';
+                        spend.style.display = 'none';
+                        //document.getElementById('back').style.visibility = 'visible';
+                        break;
+
+                    case 'spend':
+                        recived.style.display = 'none';
+                        owner_recived.style.display = 'none';
+                        spend.style.display = 'block';
+                        //document.getElementById('back').style.visibility = 'visible';
+                        break;
+                }
+            });
+        });
+
+
+
+
+    </script>
+</body>
+
+</html>
