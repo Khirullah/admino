@@ -14,16 +14,16 @@ saa.addEventListener("click", () => {
             var valuea = jaid.value;
             var text = jaid.options[jaid.selectedIndex].text;
 			switch(valuea){
-				case 'bahar':{
-					var uidc = "Hnh29IoL4vUZbtVCxcmaqL3m4Nm1";
+				case 'almas':{
+					var uidc = "8Vxgxu8C1ZMTGdZCXyCKINVL9lg2";
 					break;
 				}
-				case 'bist':{
-					var uidc = "7i1QwjmEeYN2qugJenyoWfThzuf1"
+				case 'kota':{
+					var uidc = "TKsxwHQnaleL3YZxv34wykBm4Yb2"
 					break;
 				}
-				case 'qala':{
-					var uidc = "IWPA8IT55mVlavd758jBQx8WLWb2";
+				case 'pul':{
+					var uidc = "5GX14bgXFFfougpqulk0SQBKb732";
 					break;
 				}
 			}
