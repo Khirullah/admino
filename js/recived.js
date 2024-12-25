@@ -119,13 +119,52 @@ const AddSingleRecords = (name, dateday, datemonth, dateyear, money) => {
 	td2.innerHTML = name;
 	td3.innerHTML = dateday + '/' + datemonth + '/' + dateyear;;
 	td4.innerHTML = money;
+	let delBtn = document.createElement('button')
+	delBtn.id = 'del-' + sno;
 
+	delBtn.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+	delBtn.className = 'btn btn-primary me-2';
+	delBtn.setAttribute("data-bs-toggle", 'modal');
+	delBtn.setAttribute("data-bs-target", '#actionModal');
+    delBtn.addEventListener('click', LoadModal);
+    td5.append(delBtn);
 	
-	trow.append(td1,td2,td3,td4);
+	
+	trow.append(td1,td2,td3,td4,td5);
 	
 	tbody.append(trow);
 	
 
+}
+	let ex = document.getElementById('exa');
+let modids = document.getElementById('modidsa');
+let delok = document.getElementById('delete');
+const LoadModal = (event) => {
+
+    var targetId = (event.target.id.length > 1 ) ? event.target.id : event.target.parentElement.id;
+
+    let string = targetId.split('-');
+    let mode = string[0];
+    let selectedIndex = string[1] - 1;
+
+   
+
+    if(mode==='del'){
+
+        delok.addEventListener('click', delData);
+
+        modidsa.value = shoplist[selectedIndex].ids;
+        //modis.value = ownerlist[selectedIndex].is;
+
+        modidsa.style.display = "none";
+        //modis.disabled = false;
+        modidsa.disabled = true;
+
+    }
+
+}
+const delData = () => {
+		remove(ref(db, uidc +  '/recived/' + searchyear + '/' + searchmonth + '/' + modidsa.value)).then(() => {ex.click(); });
 }
 const AddAllRecords = () =>{
 	sno=0;
