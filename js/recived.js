@@ -151,7 +151,7 @@ const LoadModal = (event) => {
    
 
     if(mode==='del'){
-
+actionLabel.innerText = 'برای حذف نمودن تایید کنید';
         delok.addEventListener('click', delData);
 
         modidsa.value = shoplist[selectedIndex].ids;
