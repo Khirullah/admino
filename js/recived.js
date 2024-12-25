@@ -123,9 +123,9 @@ const AddSingleRecords = (name, dateday, datemonth, dateyear, money) => {
 	delBtn.id = 'del-' + sno;
 
 	delBtn.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
-	delBtn.className = 'btn btn-primary me-2';
+	delBtn.className = 'btn btn-danger me-2';
 	delBtn.setAttribute("data-bs-toggle", 'modal');
-	delBtn.setAttribute("data-bs-target", '#actionModal');
+	delBtn.setAttribute("data-bs-target", '#actionModala');
     delBtn.addEventListener('click', LoadModal);
     td5.append(delBtn);
 	
@@ -139,6 +139,7 @@ const AddSingleRecords = (name, dateday, datemonth, dateyear, money) => {
 	let ex = document.getElementById('exa');
 let modids = document.getElementById('modidsa');
 let delok = document.getElementById('delete');
+	let actionLabel = document.getElementById('actionLabela');
 const LoadModal = (event) => {
 
     var targetId = (event.target.id.length > 1 ) ? event.target.id : event.target.parentElement.id;
