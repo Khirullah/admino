@@ -30,6 +30,8 @@
         ul {
             list-style-type: none;
             margin-bottom: -5%;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 15px;
             padding: 0;
             overflow: hidden;
             background-color: #333;
@@ -38,6 +40,11 @@
 
         li {
             float: left;
+            margin-left: 10px;
+            text-shadow: 0 1px rgba(0,0,0,.8);
+            background-color: #4D5B4E;
+            background-image: linear-gradient(rgba(255,255,255,.3), rgba(255,255,255,0));
+            box-shadow: 0 2px 0 rgba(0,0,0,.3);
         }
 
             li a {
@@ -50,10 +57,14 @@
 
                 li a:hover {
                     background-color: black;
+                    text-decoration: none;
+                    color: white;
                 }
 
                 li a:active {
                     background-color: black;
+                    text-decoration: none;
+                    color: white;
                 }
 
 
@@ -61,7 +72,7 @@
             margin-top: 10%;
             margin-left: 5%;
             width: 90%;
-            height: 80%;
+            height: 90%;
             background: #f4dabf;
             border-radius: 1rem;
             box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
@@ -69,18 +80,26 @@
 
         table {
             border-collapse: collapse;
-            margin: 25px 0;
+            margin: 15px 0;
             font-size: 0.9em;
-            font-family: sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
             width: 100%;
             height: 100%;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.35);
+        }
+        th {
+            position: sticky;
+            top: -2;
+            background: #DFA66A;
+            background: -moz-linear-gradient(top, #DFA66A, FFFFFF);
+            background: -webkit-gradient(linear, left top, left bottom, from(#DFA66A), to(white));
         }
 
         td, th {
             border: 1px solid #dddddd;
             text-align: center;
             padding: 8px;
+            font-family: Arial, Helvetica, sans-serif;
         }
 		h2{
 		text-align: center;
@@ -121,7 +140,7 @@
             display: inline-block;
             font-family: sans-serif;
             line-height: 1.5em;
-			width: 60%;
+			width: 90%;
             padding: 0.5em 3.5em 0.5em 1em;
             /* reset */
 
@@ -138,6 +157,7 @@
                 background-position: calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px), 100% 0;
                 background-size: 5px 5px, 5px 5px, 2.5em 2.5em;
                 background-repeat: no-repeat;
+                
             }
 
                 .jaidat:focus {
@@ -159,6 +179,40 @@ margin-left: 25%;
 margin-top: 2%;
 width: 20%;
 }
+        h2 {
+            text-align: center;
+            position: relative;
+            color: #fff;
+            margin: 0 -30px 30px -30px;
+            padding: 10px 0;
+            text-shadow: 0 1px rgba(0,0,0,.8);
+            background-color: #5c5c5c;
+            background-image: linear-gradient(rgba(255,255,255,.3), rgba(255,255,255,0));
+            box-shadow: 0 2px 0 rgba(0,0,0,.3);
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 28px;
+        }
+
+            h2::before,
+            h2::after {
+                content: '';
+                position: absolute;
+                border-style: solid;
+                border-color: transparent;
+                bottom: -10px;
+            }
+
+            h2::before {
+                border-width: 0 10px 10px 0;
+                border-right-color: #222;
+                left: 0;
+            }
+
+            h2::after {
+                border-width: 0 0 10px 10px;
+                border-left-color: #222;
+                right: 0;
+            }
     </style>
 </head>
 
@@ -166,61 +220,62 @@ width: 20%;
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
     <ul>
-        <li><a id="recived" href="#">گرفته شده</a></li>
-        <li><a id="owner_recived" href="#">رسیده به صاحب جایدات</a></li>
-        <li><a id="spend" href="#">خرج شده</a></li>
+        <li><a id="recived" href="#" class="reciveds">گرفته شده</a></li>
+        <li><a id="owner_recived" href="#" class='owners'>رسیده به صاحب جایدات</a></li>
+        <li><a id="spend" href="#" class="spends">خرج شده</a></li>
     </ul>
-    </br>
 
-    <label for="jaidat">لیست جایدات</label>
-
-    <select class="jaidat" id="jaid"><i class="fa-solid fa-bars"></i>
-        <option value="almas">الماس نوین</option>
-        <option value="kota">کوته سنگی</option>
-        <option value="pul">پول سوخته</option>
-    </select>
-    <input  type="button" id="saa" value="تائید">
+        
 
     <div class="container">
         <div class="recived">
             <div id='see'></div>
             <h2>پول از دکاندار گرفته شده</h2>
-			<br>
+            <br>
+            <select class="jaidat" id="jaid" ><i class="fa-solid fa-bars"></i>
+        <option value="almas">الماس نوین</option>
+        <option value="kota">کوته سنگی</option>
+        <option value="pul">پول سوخته</option>
+    </select>
+
+    <br>
+<br>
 				    <select id="searchmonth">
-                    <option value="01">01</option>
-                    <option value="02">02</option>
-                    <option value="03">03</option>
-                    <option value="04">04</option>
-                    <option value="05">05</option>
-                    <option value="06">06</option>
-                    <option value="07">07</option>
-                    <option value="08">08</option>
-                    <option value="09">09</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
+                    <option value="01">۰۱</option>
+                    <option value="02">۰۲</option>
+                    <option value="03">۰۳</option>
+                    <option value="04">۰۴</option>
+                    <option value="05">۰۵</option>
+                    <option value="06">۰۶</option>
+                    <option value="07">۰۷</option>
+                    <option value="08">۰۸</option>
+                    <option value="09">۰۹</option>
+                    <option value="10">۱۰</option>
+                    <option value="11">۱۱</option>
+                    <option value="12">۱۲</option>
                 </select>
 				    <select id="searchyear">
-                    <option value="1403">1403</option>
-                    <option value="1404">1404</option>
-                    <option value="1405">1405</option>
-                    <option value="1406">1406</option>
-                    <option value="1407">1407</option>
-                    <option value="1408">1408</option>
-                    <option value="1409">1409</option>
-                    <option value="1410">1410</option>
+                    <option value="1403">۱۴۰۳</option>
+                    <option value="1404">۱۴۰۴</option>
+                    <option value="1405">۱۴۰۵</option>
+                    <option value="1406">۱۴۰۶</option>
+                    <option value="1407">۱۴۰۷</option>
+                    <option value="1408">۱۴۰۸</option>
+                    <option value="1409">۱۴۰۹</option>
+                    <option value="1410">۱۴۱۰</option>
                 </select>
 				<button id="search" class="button">
 				<span class="button-content">فلتر </span>
 				</button>
 				<p id='total' class="total">مجموع پول جمع شده از دکاندار ها</p> 
-            <div id="" style="overflow:scroll; height:90%;">
+            <div id="" style="overflow:scroll; height:65%;">
                 <table>
                     <thead>
-                    <th>No:</th>
+
                     <th>اسم دکاندار</th>
                     <th>تاریخ</th>
                     <th>مقدار پول</th>
+                    <th>حذف</th>
 
                     </thead>
                     <tbody id="tbody1">
@@ -229,7 +284,7 @@ width: 20%;
                 </table>
 
             </div>
-					<div class="modal fade" id="actionModala" tabindex="-1" aria-labelledby="actionLabel" aria-hidden="true">
+			<div class="modal fade" id="actionModala" tabindex="-1" aria-labelledby="actionLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -264,43 +319,49 @@ width: 20%;
 
             <h2>پول رسیده به مالک جایدات</h2>
 			<br>
+                <select class="jaidat" id="jaido"><i class="fa-solid fa-bars"></i>
+        <option value="almas">الماس نوین</option>
+        <option value="kota">کوته سنگی</option>
+        <option value="pul">پول سوخته</option>
+    </select>
+    <br>
+    <br>
 				    <select id="osearchmonth">
-                    <option value="01">01</option>
-                    <option value="02">02</option>
-                    <option value="03">03</option>
-                    <option value="04">04</option>
-                    <option value="05">05</option>
-                    <option value="06">06</option>
-                    <option value="07">07</option>
-                    <option value="08">08</option>
-                    <option value="09">09</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
+                    <option value="01">۰۱</option>
+                    <option value="02">۰۲</option>
+                    <option value="03">۰۳</option>
+                    <option value="04">۰۴</option>
+                    <option value="05">۰۵</option>
+                    <option value="06">۰۶</option>
+                    <option value="07">۰۷</option>
+                    <option value="08">۰۸</option>
+                    <option value="09">۰۹</option>
+                    <option value="10">۱۰</option>
+                    <option value="11">۱۱</option>
+                    <option value="12">۱۲</option>
                 </select>
 				    <select id="osearchyear">
-                    <option value="1403">1403</option>
-                    <option value="1404">1404</option>
-                    <option value="1405">1405</option>
-                    <option value="1406">1406</option>
-                    <option value="1407">1407</option>
-                    <option value="1408">1408</option>
-                    <option value="1409">1409</option>
-                    <option value="1410">1410</option>
+                    <option value="1403">۱۴۰۳</option>
+                    <option value="1404">۱۴۰۴</option>
+                    <option value="1405">۱۴۰۵</option>
+                    <option value="1406">۱۴۰۶</option>
+                    <option value="1407">۱۴۰۷</option>
+                    <option value="1408">۱۴۰۸</option>
+                    <option value="1409">۱۴۰۹</option>
+                    <option value="1410">۱۴۱۰</option>
                 </select>
 				<button id="osearch" class="button">
 				<span class="obutton-content">فلتر </span>
 				</button>
 				<p id='ototal' class="total">مجموع پول جمع شده از دکاندار ها</p> 
 
-            <div id="" style="overflow:scroll; height:90%;">
+            <div id="" style="overflow:scroll; height:65%;">
                 <table>
                     <thead>
-                    <th>No</th>
                     <th>تاریخ</th>
                     <th>مقدار پول</th>
                     <th>تائید مالک جایدات</th>
-                    <th>تائید</th>
+                    <th>حذف</th>
 
                     </thead>
                     <tbody id="tbody2">
@@ -314,7 +375,11 @@ width: 20%;
                     <div class="modal-content">
                         <div class="modal-header">
                             <p class="modal-title fs-5" id="actionLabel">Modal title</p>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="ex"><i class="fa-solid fa-xmark"></i></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="exoo"><i class="fa-solid fa-xmark"></i></button>
+                        </div>
+                        <div class="modal-header">
+                            <p class="modal-title fs-5" id="actionLabelo">Modal title</p>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="exo"><i class="fa-solid fa-xmark"></i></button>
                         </div>
                         <div class="modal-body">
 
@@ -325,6 +390,10 @@ width: 20%;
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label"></label>
                                 <input type="button" class="form-control" value="خیر" id="modis" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label"></label>
+                                <input type="button" value='تائید' id="odelete" />
                             </div>
 
 
@@ -341,43 +410,49 @@ width: 20%;
         <div class="spend">
             <h2>مصارف</h2>
 			<br>
+                   <select class="jaidat" id="jaids"><i class="fa-solid fa-bars"></i>
+        <option value="almas">الماس نوین</option>
+        <option value="kota">کوته سنگی</option>
+        <option value="pul">پول سوخته</option>
+    </select>
+    <br>
+    <br>
 				    <select id="ssearchmonth">
-                    <option value="01">01</option>
-                    <option value="02">02</option>
-                    <option value="03">03</option>
-                    <option value="04">04</option>
-                    <option value="05">05</option>
-                    <option value="06">06</option>
-                    <option value="07">07</option>
-                    <option value="08">08</option>
-                    <option value="09">09</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
+                    <option value="01">۰۱</option>
+                    <option value="02">۰۲</option>
+                    <option value="03">۰۳</option>
+                    <option value="04">۰۴</option>
+                    <option value="05">۰۵</option>
+                    <option value="06">۰۶</option>
+                    <option value="07">۰۷</option>
+                    <option value="08">۰۸</option>
+                    <option value="09">۰۹</option>
+                    <option value="10">۱۰</option>
+                    <option value="11">۱۱</option>
+                    <option value="12">۱۲</option>
                 </select>
 				    <select id="ssearchyear">
-                    <option value="1403">1403</option>
-                    <option value="1404">1404</option>
-                    <option value="1405">1405</option>
-                    <option value="1406">1406</option>
-                    <option value="1407">1407</option>
-                    <option value="1408">1408</option>
-                    <option value="1409">1409</option>
-                    <option value="1410">1410</option>
+                    <option value="1403">۱۴۰۳</option>
+                    <option value="1404">۱۴۰۴</option>
+                    <option value="1405">۱۴۰۵</option>
+                    <option value="1406">۱۴۰۶</option>
+                    <option value="1407">۱۴۰۷</option>
+                    <option value="1408">۱۴۰۸</option>
+                    <option value="1409">۱۴۰۹</option>
+                    <option value="1410">۱۴۱۰</option>
                 </select>
 				<button id="ssearch" class="button">
 				<span class="sbutton-content">فلتر </span>
 				</button>
 				<p id='stotal' class="total">مجموع پول جمع شده از دکاندار ها</p> 
-            <div id="" style="overflow:scroll; height:90%;">
+            <div id="" style="overflow:scroll; height:65%;">
                 <table>
                     <thead>
-                    <th>No</th>
                     <th>معلومات</th>
                     <th>تاریخ</th>
                     <th>مقدار پول</th>
                     <th>تائید مالک جایدات</th>
-                    <th>تائید</th>
+                    <th>حذف</th>
 
                     </thead>
                     <tbody id="tbody3">
@@ -402,6 +477,10 @@ width: 20%;
                                 <label for="exampleFormControlInput1" class="form-label"></label>
                                 <input type="button" class="form-control" value="بله" id="modiss" />
                             </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label"></label>
+                                <input type="button" class="form-control" value="delete" id="deles" />
+                            </div>
 
 
                         </div>
@@ -415,10 +494,15 @@ width: 20%;
 
 
     <script type="module">
-
- 
-       
-        
+import { onAuthStateChanged, getAuth} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+import { getDatabase, ref, set, child, get, onValue, push, update, query, orderByChild, onChildAdded, limitToFirst, limitToLast, 
+startAt, startAfter, endAt, endBefore, equalTo, remove} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+import {firebaseConfig} from './js/config.js';
+const firebaseApps = initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const firestore = firebase.firestore();
+const db = getDatabase();
 
         const recived = document.querySelector('.recived');
         const owner_recived = document.querySelector('.owner_recived');
@@ -436,13 +520,20 @@ width: 20%;
                         owner_recived.style.display = 'none';
                         spend.style.display = 'none';
                         //document.getElementById('back').style.visibility = 'visible';
-
+                        let r = 'recived';
+                        update(ref(db),{
+                            page: r,
+                            })
                         break;
                     case 'owner_recived':
                         recived.style.display = 'none';
                         owner_recived.style.display = 'block';
                         spend.style.display = 'none';
                         //document.getElementById('back').style.visibility = 'visible';
+                        let o = 'owner';
+                        update(ref(db),{
+                            page: o,
+                            })
                         break;
 
                     case 'spend':
@@ -450,6 +541,10 @@ width: 20%;
                         owner_recived.style.display = 'none';
                         spend.style.display = 'block';
                         //document.getElementById('back').style.visibility = 'visible';
+                        let sp = 'spend';
+                        update(ref(db),{
+                            page: sp,
+                            })
                         break;
                 }
             });
@@ -457,6 +552,27 @@ width: 20%;
 
 
 
+const dbRef = ref(db);
+
+
+onValue(dbRef, (snapshot) => {
+  snapshot.forEach((childSnapshot) => {
+    const childKey = childSnapshot.key;
+    const childData = childSnapshot.val();
+
+	//console.log(childData);
+	if(childData=='owner'){
+		document.getElementsByClassName("owners")[0].click();
+	}
+	else if(childData=='spend'){
+		document.getElementsByClassName("spends")[0].click();
+	}
+	else if(childData=='recived'){
+		document.getElementsByClassName("reciveds")[0].click();
+	}
+
+  });
+});
 
     </script>
 </body>
