@@ -9,16 +9,14 @@ const auth = firebase.auth();
 const firestore = firebase.firestore();
 const db = getDatabase();
 
-	
-	
-		
+
+
 //const topUserPostsRef = query(ref(db, uid), orderByChild('name'));
 //console.log(topUserPostsRef)
-const saa = document.getElementById("saa");
-saa.addEventListener("click", () => {
+seck()
+document.getElementById("jaid").onchange = function() {seck()};
+function seck(){
 	
-
-
             let jaid = document.getElementById('jaid');
             var valuea = jaid.value;
             var text = jaid.options[jaid.selectedIndex].text;
@@ -90,21 +88,43 @@ const selectAllDataRealtime = () =>{
 
 		
 		AddAllRecords();
+		
 				var table = document.getElementById("tbody1"), sumVal = 0;
             
             for(var i = 0; i < table.rows.length; i++)
             {
-                sumVal = sumVal + parseInt(table.rows[i].cells[3].innerHTML);
+				var aa = table.rows[i].cells[2].innerHTML.toEnglishDigits();
+				var aaa = parseInt(aa);
+                sumVal = sumVal + aaa;
+				
             }
-            
+            var a = sumVal.toString();
             //document.getElementById("val").innerHTML = "Sum Value = " + sumVal;
 			let total = document.getElementById('total');
-			total.innerHTML = 'به مبلغ ' + sumVal + ' ماه  ' + searchmonth + ' ' + 'سال ' + searchyear;
-            console.log(sumVal);
+			total.innerHTML = 'مجموعه ماه  ' +   searchmonth.toPersianDigits() + ' ' + 'سال ' + searchyear.toPersianDigits() + ' : ' + a.toPersianDigits().bold();
+            //console.log(sumVal);
 	
 	})
 
 }
+String.prototype.toEnglishDigits = function () {
+    var persian = { '۰': '0', '۱': '1', '۲': '2', '۳': '3', '۴': '4', '۵': '5', '۶': '6', '۷': '7', '۸': '8', '۹': '9' };
+    var arabic = { '٠': '0', '١': '1', '٢': '2', '٣': '3', '٤': '4', '٥': '5', '٦': '6', '٧': '7', '٨': '8', '٩': '9' };
+    return this.replace(/[^0-9.]/g, function (w) {
+        return persian[w] || arabic[w] || w;
+    });
+};
+String.prototype.toPersianDigits = function () {
+    //var persian = { '۰': '0', '۱': '1', '۲': '2', '۳': '3', '۴': '4', '۵': '5', '۶': '6', '۷': '7', '۸': '8', '۹': '9' };
+    var persian = {'0': '۰', '1': '۱', '2': '۲', '3': '۳','4': '۴', '5': '۵', '6': '۶', '7': '۷', '8': '۸', '9': '۹' };
+    //var arabic = { '٠': '0', '١': '1', '٢': '2', '٣': '3', '٤': '4', '٥': '5', '٦': '6', '٧': '7', '٨': '8', '٩': '9' };
+    return this.replace(/[^۰-۹.]/g, function (w) {
+        return persian[w] || w;
+    });
+};
+
+
+
 const AddSingleRecords = (name, dateday, datemonth, dateyear, money) => {
 	let trow = document.createElement('tr');
 	let td1 = document.createElement('td');
@@ -117,8 +137,9 @@ const AddSingleRecords = (name, dateday, datemonth, dateyear, money) => {
 	
 	td1.innerHTML = ++sno;
 	td2.innerHTML = name;
-	td3.innerHTML = dateday + '/' + datemonth + '/' + dateyear;;
-	td4.innerHTML = money;
+	td3.innerHTML = dateday.toPersianDigits() + '/' + datemonth.toPersianDigits() + '/' + dateyear.toPersianDigits();
+	td4.innerHTML = money.toPersianDigits();
+	
 	let delBtn = document.createElement('button')
 	delBtn.id = 'del-' + sno;
 
@@ -129,17 +150,16 @@ const AddSingleRecords = (name, dateday, datemonth, dateyear, money) => {
     delBtn.addEventListener('click', LoadModal);
     td5.append(delBtn);
 	
-	
-	trow.append(td1,td2,td3,td4,td5);
+	trow.append(td2,td3,td4,td5);
 	
 	tbody.append(trow);
 	
 
 }
-	let ex = document.getElementById('exa');
+let ex = document.getElementById('exa');
 let modids = document.getElementById('modidsa');
 let delok = document.getElementById('delete');
-	let actionLabel = document.getElementById('actionLabela');
+let actionLabel = document.getElementById('actionLabela');
 const LoadModal = (event) => {
 
     var targetId = (event.target.id.length > 1 ) ? event.target.id : event.target.parentElement.id;
@@ -151,7 +171,7 @@ const LoadModal = (event) => {
    
 
     if(mode==='del'){
-actionLabel.innerText = 'برای حذف نمودن تایید کنید';
+		actionLabel.innerText = 'برای حذف نمودن تایید کنید';
         delok.addEventListener('click', delData);
 
         modidsa.value = shoplist[selectedIndex].ids;
@@ -165,7 +185,14 @@ actionLabel.innerText = 'برای حذف نمودن تایید کنید';
 
 }
 const delData = () => {
-		remove(ref(db, uidc +  '/recived/' + searchyear + '/' + searchmonth + '/' + modidsa.value)).then(() => {ex.click(); });
+		remove(ref(db, uidc +  '/recived/' + searchyear + '/' + searchmonth + '/' + modidsa.value)).then(() => {
+			ex.click(); 
+			let d = 'recived';
+			update(ref(db),{
+				page: d,
+			})
+			});
+		
 }
 const AddAllRecords = () =>{
 	sno=0;
@@ -311,8 +338,6 @@ window.addEventListener('load', selectAllDataRealtime());
 }
 
 			window.addEventListener('load', sear());
-});
-
-document.getElementById('saa').click();
+};
 //const topUserPostsRef = query(ref(db, uid + '/recived/2i2uzTCuNdznHqOroj6V7jreVeO8Y367'), orderByChild('money'));
 //console.log(topUserPostsRef)
