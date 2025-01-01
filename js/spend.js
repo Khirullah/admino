@@ -1,18 +1,18 @@
-﻿        import { onAuthStateChanged, getAuth} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+        import { onAuthStateChanged, getAuth} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
 import { getDatabase, ref, set, child, get, onValue, push, update, query, orderByChild, onChildAdded, limitToFirst, limitToLast, 
-startAt, startAfter, endAt, endBefore, equalTo} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+startAt, startAfter, endAt, endBefore, equalTo, remove} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
 import {firebaseConfig} from './config.js';
 //const firebaseApp = firebase.initializeApp(firebaseConfig);
 const firebaseApps = initializeApp(firebaseConfig);
 //const auth = firebase.auth();
 //const firestore = firebase.firestore();
 const db = getDatabase();
+secks()
+document.getElementById("jaids").onchange = function() {secks()};
+function secks(){
 
-const saa = document.getElementById("saa");
-saa.addEventListener("click", () => {
-
-            let jaid = document.getElementById('jaid');
+            let jaid = document.getElementById('jaids');
             var valuea = jaid.value;
             var text = jaid.options[jaid.selectedIndex].text;
 			switch(valuea){
@@ -87,17 +87,35 @@ const selectAllDataRealtime = () =>{
             
             for(var i = 0; i < table.rows.length; i++)
             {
-                sumVal = sumVal + parseInt(table.rows[i].cells[3].innerHTML);
+                //sumVal = sumVal + parseInt(table.rows[i].cells[3].innerHTML);
+				var aa = table.rows[i].cells[2].innerHTML.toEnglishDigits();
+				var aaa = parseInt(aa);
+                sumVal = sumVal + aaa;
             }
-            
+            var as = sumVal.toString();
             //document.getElementById("val").innerHTML = "Sum Value = " + sumVal;
 			let stotal = document.getElementById('stotal');
-			stotal.innerHTML = 'به مقدار' + sumVal + 'ماه  ' + ssearchmonth + ' ' + 'سال ' + ssearchyear;
-            console.log(sumVal);
+			stotal.innerHTML = 'به مقدار' + as.toPersianDigits().bold() + 'ماه  ' + ssearchmonth.toPersianDigits() + ' ' + 'سال ' + ssearchyear.toPersianDigits();
+            //console.log(sumVal);
 	
 	})
 
 }
+String.prototype.toEnglishDigits = function () {
+    var persian = { '۰': '0', '۱': '1', '۲': '2', '۳': '3', '۴': '4', '۵': '5', '۶': '6', '۷': '7', '۸': '8', '۹': '9' };
+    var arabic = { '٠': '0', '١': '1', '٢': '2', '٣': '3', '٤': '4', '٥': '5', '٦': '6', '٧': '7', '٨': '8', '٩': '9' };
+    return this.replace(/[^0-9.]/g, function (w) {
+        return persian[w] || arabic[w] || w;
+    });
+};
+String.prototype.toPersianDigits = function () {
+    //var persian = { '۰': '0', '۱': '1', '۲': '2', '۳': '3', '۴': '4', '۵': '5', '۶': '6', '۷': '7', '۸': '8', '۹': '9' };
+    var persian = {'0': '۰', '1': '۱', '2': '۲', '3': '۳','4': '۴', '5': '۵', '6': '۶', '7': '۷', '8': '۸', '9': '۹' };
+    //var arabic = { '٠': '0', '١': '1', '٢': '2', '٣': '3', '٤': '4', '٥': '5', '٦': '6', '٧': '7', '٨': '8', '٩': '9' };
+    return this.replace(/[^۰-۹.]/g, function (w) {
+        return persian[w] || w;
+    });
+};
 const AddSingleRecords = (info, dateday, datemonth, dateyear, money, is, ids) => {
 	let trow = document.createElement('tr');
 	let td1 = document.createElement('td');
@@ -111,9 +129,9 @@ const AddSingleRecords = (info, dateday, datemonth, dateyear, money, is, ids) =>
 	
 	td1.innerHTML = ++sno;
 	td2.innerHTML = info;
-	td3.innerHTML = dateday + '/' + datemonth + '/' + dateyear;
-	td4.innerHTML = money;
-	td5.innerHTML = is;
+	td3.innerHTML = dateday.toPersianDigits() + '/' + datemonth.toPersianDigits() + '/' + dateyear.toPersianDigits();
+	td4.innerHTML = money.toPersianDigits();
+	//td5.innerHTML = is;
 	td6.innerHTML = ids;
     
 	
@@ -122,15 +140,24 @@ const AddSingleRecords = (info, dateday, datemonth, dateyear, money, is, ids) =>
 EditBtns.id = 'edit-' + sno;
 
 EditBtns.className = 'btn btn-primary me-2';
-EditBtns.innerHTML = '<i class="fa-solid fa-pen-to-square"></i>';
+EditBtns.innerHTML = is;
 EditBtns.setAttribute("data-bs-toggle", 'modal');
 EditBtns.setAttribute("data-bs-target", '#actionModals');
 EditBtns.addEventListener('click', LoadModals);
 
-td7.append(EditBtns);
+td5.append(EditBtns);
 
+	let delBtn = document.createElement('button')
+	delBtn.id = 'del-' + sno;
 
-	trow.append(td1,td2,td3,td4,td5,td7);
+	delBtn.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+	delBtn.className = 'btn btn-danger me-2';
+	delBtn.setAttribute("data-bs-toggle", 'modal');
+	delBtn.setAttribute("data-bs-target", '#actionModals');
+    delBtn.addEventListener('click', LoadModals);
+    td7.append(delBtn);
+	
+	trow.append(td2,td3,td4,td5,td7);
 	
 	tbody.append(trow);
 	
@@ -158,14 +185,10 @@ const AddAllRecords = () =>{
 		})
 		
 }
-let ex = document.getElementById('exs');
+let exs = document.getElementById('exs');
 let actionLabel = document.getElementById('actionLabels');
-let moddate = document.getElementById('moddate');
-let modmoney = document.getElementById('modmoney');
-let modidss = document.getElementById('modidss');
 let modiss = document.getElementById('modiss');
-let addBtn = document.getElementById('add-0');
-
+let deles = document.getElementById('deles');
 const LoadModals = (event) => {
 
     var targetId = (event.target.id.length > 1 ) ? event.target.id : event.target.parentElement.id;
@@ -185,33 +208,74 @@ const LoadModals = (event) => {
         modiss.value = spendlist[selectedIndex].is;
 
         modidss.style.display = "none";
-        //modis.disabled = false;
+		 deles.style.display = "none";
+        deles.disabled = true;
         modidss.disabled = true;
+		modiss.disabled = false;
+		modiss.style.display = "block";
+
+    }
+	else if(mode==='del'){
+		actionLabels.innerText = 'برای حذف نمودن تایید کنید';
+        deles.addEventListener('click', delData);
+
+        modids.value = spendlist[selectedIndex].ids;
+		
+		modidss.style.display = "none";
+		modiss.style.display = "none";
+		deles.disabled = false;
+		modiss.disabled = true;
+		deles.style.display = "block";
+		 
 
     }
 
 }
+const delData = () => {
+		remove(ref(db, uidc +  '/spend/' + ssearchyear + '/' + ssearchmonth + '/' + modidss.value)).then(() => {
+			exs.click();
+			let d = 'spend';
+			update(ref(db),{
+				page: d,
+			})
+			});
+		
+}
 var elem = document.getElementById("modiss");
-var isis = '';
 const UpdDatas = () => {
     let data = {};
 
 	
 switch(elem.value) {
 	case "خیر":
-		isis = 'بله';
 		elem.value = 'بله';
+		data[uidc +  '/spend/' + ssearchyear + '/' + ssearchmonth + '/'+ modidss.value + '/is'] = elem.value;
+		update(ref(db), data).then(() => {
+			exoo.click();
+			let v = 'spend';
+			update(ref(db),{
+				page: v,
+			})
+			window.location.reload();
+			})
+		//window.addEventListener('load', selectAllDataRealtime());
 		break;
 	case "بله":
-		isis = "خیر";
 		elem.value = 'خیر';
+		data[uidc +  '/spend/' + ssearchyear + '/' + ssearchmonth + '/'+ modidss.value + '/is'] = elem.value;
+		update(ref(db), data).then(() => {
+			exs.click();
+			let v = 'spend';
+			update(ref(db),{
+				page: v,
+			})
+			window.location.reload();
+		})
+		//window.addEventListener('load', selectAllDataRealtime());
+		
 		break;
 }
 
-    data[uidc +  '/spend/' + ssearchyear + '/' + ssearchmonth + '/'+ modidss.value + '/is'] = isis;
-
-
-    update(ref(db), data).then(() => {ex.click(); })
 
 }
 
@@ -347,5 +411,4 @@ window.addEventListener('load', selectAllDataRealtime());
 
 		
 		
-	});
-	document.getElementById('saa').click();
+	};
